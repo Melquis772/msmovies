@@ -785,6 +785,7 @@ input{
   position: relative;
   max-width: 1024px;
   margin: 0 auto;
+  text-align: justify;
 }
 
 
