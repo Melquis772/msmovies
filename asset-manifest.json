@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/msmovies/static/css/main.581a8063.css",
-    "main.js": "/msmovies/static/js/main.350ab2d6.js",
+    "main.css": "/msmovies/static/css/main.f92a30a3.css",
+    "main.js": "/msmovies/static/js/main.f07b42ab.js",
     "static/media/boxicons.svg": "/msmovies/static/media/boxicons.045b05bf2dc119267a90.svg",
     "static/media/footer-bg.jpg": "/msmovies/static/media/footer-bg.67e95f05e76a8cebf7e2.jpg",
     "static/media/boxicons.eot": "/msmovies/static/media/boxicons.092b78589f3f53e60030.eot",
@@ -10,11 +10,11 @@
     "static/media/boxicons.woff2": "/msmovies/static/media/boxicons.8d765747a5588f36ff61.woff2",
     "static/media/logo.png": "/msmovies/static/media/logo.283aa5e639cfd71cd548.png",
     "index.html": "/msmovies/index.html",
-    "main.581a8063.css.map": "/msmovies/static/css/main.581a8063.css.map",
-    "main.350ab2d6.js.map": "/msmovies/static/js/main.350ab2d6.js.map"
+    "main.f92a30a3.css.map": "/msmovies/static/css/main.f92a30a3.css.map",
+    "main.f07b42ab.js.map": "/msmovies/static/js/main.f07b42ab.js.map"
   },
   "entrypoints": [
-    "static/css/main.581a8063.css",
-    "static/js/main.350ab2d6.js"
+    "static/css/main.f92a30a3.css",
+    "static/js/main.f07b42ab.js"
   ]
 }
