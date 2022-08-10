@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { TailSpin } from 'react-loader-spinner';
+
 
 import { category } from '../../api/tmdbApi';
 import apiConfig from '../../api/apiConfig';
@@ -21,7 +23,10 @@ export const MovieGrid = (props) => {
 
     const [totalPages, setTotalPages] = useState(0);
 
+    const [isLoading, setIsLoading] = useState(false)
+
     useEffect(() => {
+        setIsLoading(true)
         const getList = async () => {
             let response = null;
 
@@ -47,6 +52,7 @@ export const MovieGrid = (props) => {
 
             setItems(response.results);
             setTotalPages(response.total_pages);
+            setIsLoading(false)
         }
 
         getList();
@@ -54,6 +60,7 @@ export const MovieGrid = (props) => {
     }, [props.category, keyword])
 
     const loadMore = async () => {
+
         let response = null;
 
         if (keyword === undefined) {
@@ -82,24 +89,33 @@ export const MovieGrid = (props) => {
 
     return (
         <>
-
             <div className="section">
                 <MovieSearch category={props.category} keyword={keyword} />
             </div>
+            {isLoading ? (
+                <div className="tailspin_comp">
+                    <TailSpin color="#ff0000" height={80} width={80} />
+                </div>
+            ) : (
+                <>
 
-            <div className="movie-grid">
-                {
-                    items.map((item, index) => <MovieCard category={props.category} item={item} key={index} />)
-                }
-            </div>
 
-            {
-                page < totalPages ? (
-                    <div className="movie-grid_loadmore">
-                        <OutlineButton className="small" onClick={loadMore}>Load more</OutlineButton>
+                    <div className="movie-grid">
+                        {
+                            items.map((item, index) => <MovieCard category={props.category} item={item} key={index} />)
+                        }
                     </div>
-                ) : null
-            }
+
+                    {
+                        page < totalPages ? (
+                            <div className="movie-grid_loadmore">
+                                <OutlineButton className="small" onClick={loadMore}>Load more</OutlineButton>
+                            </div>
+                        ) : null
+                    }
+                </>
+
+            )}
 
         </>
     )

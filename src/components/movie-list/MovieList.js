@@ -7,6 +7,8 @@ import '../../App.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Autoplay } from 'swiper';
 
+import { TailSpin } from 'react-loader-spinner';
+
 import { category } from '../../api/tmdbApi';
 import apiConfig from '../../api/apiConfig';
 
@@ -18,8 +20,10 @@ function MovieList(props) {
     SwiperCore.use([Autoplay])
 
     const [items, setItems] = useState([])
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
+        setIsLoading(true)
         const getList = async () => {
             let response = null;
             //const params = {};
@@ -38,30 +42,41 @@ function MovieList(props) {
 
             }
             setItems(response.results)
+            setIsLoading(false)
         }
         getList();
     }, [])
 
 
     return (
+        <>
+            {isLoading ? (
+                <div className="tailspin_comp">
 
-        <div className="movie-list">
-            <Swiper
-                modules={[Autoplay]}
-                grabCursor={true}
-                spaceBetween={10}
-                slidesPerView={'auto'}
-                autoplay={{ delay: 3000 }}
-            >
-                {
-                    items.map((item, index) => (
-                        <SwiperSlide key={index}>
-                            <MovieCard item={item} category={props.category} />
-                        </SwiperSlide>
-                    ))
-                }
-            </Swiper>
-        </div>
+                    <TailSpin color="#ff0000" height={80} width={80} />
+                </div>
+            ) : (
+                <div className="movie-list">
+                    <Swiper
+                        modules={[Autoplay]}
+                        grabCursor={true}
+                        spaceBetween={10}
+                        slidesPerView={'auto'}
+                        autoplay={{ delay: 3000 }}
+                    >
+                        {
+                            items.map((item, index) => (
+                                <SwiperSlide key={index}>
+                                    <MovieCard item={item} category={props.category} />
+                                </SwiperSlide>
+                            ))
+                        }
+                    </Swiper>
+                </div>
+            )}
+
+        </>
+
 
     )
 }

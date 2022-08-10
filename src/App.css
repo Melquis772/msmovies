@@ -20,7 +20,7 @@ box-sizing: border-box;
   --black: #000;
 
   --header-height: 5rem;
-  --header-shrink-height: 4rem;
+  --header-shrink-height: 4.5rem;
   --border-radius: 30px;
   --mobile-width: 600px;
   --tablet-width: 1024px;
@@ -104,6 +104,40 @@ iframe{
   align-items: center;
   margin-bottom: 2rem;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* LOADING STARTS*/
+
+.tailspin{
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tailspin_comp{
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* LOADING ENDS */
 
 
 
@@ -727,8 +761,10 @@ input{
   line-height: 1;
 }
 
-.movie-content_info .genres > * ~ *{
-  margin-left: 0.5rem;
+.movie-content_info .genres{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .movie-content_info .genres .genres_item{

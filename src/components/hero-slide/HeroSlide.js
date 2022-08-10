@@ -8,6 +8,8 @@ import '../../App.css'
 import SwiperCore, { Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { TailSpin } from 'react-loader-spinner';
+
 import apiConfig from '../../api/apiConfig';
 
 import Button, { OutlineButton } from '../button/Button'
@@ -19,21 +21,25 @@ export default function HeroSlide() {
     SwiperCore.use([Autoplay]);
 
     const [movieItems, setMovieItems] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
 
     useEffect(() => {
         const getMovies = async () => {
             const params = { page: 1 }
-
+            setIsLoading(true)
             try {
 
                 const response = await axios.get(`${apiConfig.baseUrl}/hero-slide/${params.page}`)
-                const data = response.data
+                const data = await response.data
                 setMovieItems(data.results.slice(0, 7))
+                setIsLoading(false)
 
             } catch (error) {
                 console.log(error.message)
             }
+
+
         }
 
         getMovies();
@@ -42,33 +48,45 @@ export default function HeroSlide() {
 
 
     return (
-        <div className="hero-slide">
+        <>
+            {isLoading ? (
+                <div className="tailspin">
 
-            <Swiper
-                modules={[Autoplay]}
-                grabCursor={true}
-                spaceBetween={0}
-                slidesPerView={1}
-            //autoplay={{ delay: 3000 }}
-            >
-                {
-                    movieItems.map((item, index) => (
-                        <SwiperSlide key={index}>
-                            {({ isActive }) => (
-                                <HeroSlideItem item={item} className={`${isActive ? 'active' : ''}`} />
-                            )}
-                        </SwiperSlide>
-                    ))
-                }
+                    <TailSpin color="#ff0000" height={80} width={80} />
+                </div>
+            ) : (
+                <div className="hero-slide">
 
-            </Swiper>
+                    <Swiper
+                        modules={[Autoplay]}
+                        grabCursor={true}
+                        spaceBetween={0}
+                        slidesPerView={1}
+                    //autoplay={{ delay: 3000 }}
+                    >
+                        {
+                            movieItems.map((item, index) => (
+                                <SwiperSlide key={index}>
+                                    {({ isActive }) => (
+                                        <HeroSlideItem item={item} className={`${isActive ? 'active' : ''}`} />
+                                    )}
+                                </SwiperSlide>
+                            ))
+                        }
 
-            {
-                movieItems.map((item, index) => <TrailerModal key={index} item={item} />)
-            }
+                    </Swiper>
+
+                    {
+                        movieItems.map((item, index) => <TrailerModal key={index} item={item} />)
+                    }
 
 
-        </div>
+                </div>
+            )}
+
+
+        </>
+
     )
 
 }

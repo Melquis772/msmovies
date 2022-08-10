@@ -8,6 +8,8 @@ import { CastList } from './CastList';
 import { VideoList } from './VideoList';
 import MovieList from '../../components/movie-list/MovieList';
 
+import { TailSpin } from 'react-loader-spinner';
+
 import apiConfig from '../../api/apiConfig';
 
 
@@ -16,12 +18,14 @@ export const Detail = () => {
     const { category, id } = useParams();
 
     const [item, setItem] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-
+        setIsLoading(true)
         const getDetail = async () => {
             const response = await (await axios.get(`${apiConfig.baseUrl}/detail/${category}/${id}`)).data
             setItem(response);
+            setIsLoading(false)
             window.scrollTo(0, 0);
         }
         getDetail();
@@ -31,69 +35,77 @@ export const Detail = () => {
 
     return (
         <>
-            {
-                item && (
-                    <>
+            {isLoading ? (
+                <div className="tailspin">
+                    <TailSpin color="#ff0000" height={80} width={80} />
+                </div>
+            ) : (
+                <>
+                    {
+                        item && (
+                            <>
 
-                        <div className="banner"
-                            style={{ backgroundImage: `url(${apiConfig.originalImage(item.backfrop_path || item.poster_path)})` }}>
-
-                        </div>
-
-                        <div className="movie-content container">
-
-                            <div className="movie-content_poster">
-                                <div className="movie-content_poster_img"
+                                <div className="banner"
                                     style={{ backgroundImage: `url(${apiConfig.originalImage(item.backfrop_path || item.poster_path)})` }}>
 
                                 </div>
-                            </div>
 
-                            <div className="movie-content_info">
+                                <div className="movie-content container">
 
-                                <h1 className="title">
-                                    {item.title || item.name}
-                                </h1>
+                                    <div className="movie-content_poster">
+                                        <div className="movie-content_poster_img"
+                                            style={{ backgroundImage: `url(${apiConfig.originalImage(item.backfrop_path || item.poster_path)})` }}>
 
-                                <div className="genres">
-                                    {
-                                        item.genres && item.genres.slice(0, 5).map((genre, index) => (
-                                            <span key={index} className="genres_item">{genre.name}</span>
-                                        ))
-                                    }
-                                </div>
-
-                                <p className="overview">{item.overview}</p>
-
-                                <div className="cast">
-                                    <div className="section_header">
-                                        <h2>Casts</h2>
+                                        </div>
                                     </div>
-                                    <CastList id={item.id} />
+
+                                    <div className="movie-content_info">
+
+                                        <h1 className="title">
+                                            {item.title || item.name}
+                                        </h1>
+
+                                        <div className="genres">
+                                            {
+                                                item.genres && item.genres.slice(0, 5).map((genre, index) => (
+                                                    <span key={index} className="genres_item">{genre.name}</span>
+                                                ))
+                                            }
+                                        </div>
+
+                                        <p className="overview">{item.overview}</p>
+
+                                        <div className="cast">
+                                            <div className="section_header">
+                                                <h2>Casts</h2>
+                                            </div>
+                                            <CastList id={item.id} />
+                                        </div>
+
+                                    </div>
+
                                 </div>
 
-                            </div>
+                                <div className="container">
 
-                        </div>
+                                    <div className="section">
+                                        <VideoList id={item.id} />
+                                    </div>
 
-                        <div className="container">
+                                    <div className="section">
+                                        <div className="section_header">
+                                            <h2>Similar</h2>
+                                        </div>
+                                        <MovieList category={category} type="similar" id={item.id} />
+                                    </div>
 
-                            <div className="section">
-                                <VideoList id={item.id} />
-                            </div>
-
-                            <div className="section">
-                                <div className="section_header">
-                                    <h2>Similar</h2>
                                 </div>
-                                <MovieList category={category} type="similar" id={item.id} />
-                            </div>
 
-                        </div>
-
-                    </>
-                )
-            }
+                            </>
+                        )
+                    }
+                </>
+            )}
         </>
     )
 }
