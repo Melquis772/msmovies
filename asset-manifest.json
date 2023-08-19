@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/msmovies/static/css/main.ede6c8e8.css",
-    "main.js": "/msmovies/static/js/main.ee98b050.js",
+    "main.js": "/msmovies/static/js/main.06f3fcc7.js",
     "static/media/boxicons.svg": "/msmovies/static/media/boxicons.045b05bf2dc119267a90.svg",
     "static/media/footer-bg.jpg": "/msmovies/static/media/footer-bg.67e95f05e76a8cebf7e2.jpg",
     "static/media/boxicons.eot": "/msmovies/static/media/boxicons.092b78589f3f53e60030.eot",
@@ -11,10 +11,10 @@
     "static/media/logo.png": "/msmovies/static/media/logo.283aa5e639cfd71cd548.png",
     "index.html": "/msmovies/index.html",
     "main.ede6c8e8.css.map": "/msmovies/static/css/main.ede6c8e8.css.map",
-    "main.ee98b050.js.map": "/msmovies/static/js/main.ee98b050.js.map"
+    "main.06f3fcc7.js.map": "/msmovies/static/js/main.06f3fcc7.js.map"
   },
   "entrypoints": [
     "static/css/main.ede6c8e8.css",
-    "static/js/main.ee98b050.js"
+    "static/js/main.06f3fcc7.js"
   ]
 }
